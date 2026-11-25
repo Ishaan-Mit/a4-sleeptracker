@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/home"></ion-back-button></ion-buttons>
+    <ion-title>Log Sleep</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label>Night of</ion-label>
+      <ion-datetime-button datetime="night"></ion-datetime-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Went to bed</ion-label>
+      <ion-datetime-button datetime="bed"></ion-datetime-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Woke up</ion-label>
+      <ion-datetime-button datetime="wake"></ion-datetime-button>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="night" presentation="date" [(ngModel)]="nightDate" [max]="maxDate"></ion-datetime>
+    </ng-template>
+  </ion-modal>
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="bed" presentation="time" [(ngModel)]="bedtime"></ion-datetime>
+    </ng-template>
+  </ion-modal>
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="wake" presentation="time" [(ngModel)]="wakeTime"></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <h2 class="ion-text-center">{{ durationText }} asleep</h2>
+
+  @if (errorMessage) {
+    <ion-text color="danger"><p class="ion-text-center">{{ errorMessage }}</p></ion-text>
+  }
+  <p>{{ bedtime }} | {{ wakeTime }} | {{ durationMin }}</p>
+  <ion-button expand="block" [disabled]="!isValid" (click)="save()">Save</ion-button>
+</ion-content>

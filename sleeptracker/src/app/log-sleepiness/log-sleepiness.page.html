@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/home"></ion-back-button></ion-buttons>
+    <ion-title>Log Sleepiness</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-radio-group [(ngModel)]="selected">
+      @for (opt of options; track opt.value) {
+        <ion-item>
+          <ion-radio [value]="opt.value" labelPlacement="end" justify="start" class="ion-text-wrap">
+            <strong>{{ opt.value }}</strong>: {{ opt.text }}
+          </ion-radio>
+        </ion-item>
+      }
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-item>
+    <ion-label>When</ion-label>
+    <div slot="end">
+      <ion-datetime-button datetime="when"></ion-datetime-button>
+    </div>
+  </ion-item>
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="when" [(ngModel)]="loggedAt" [max]="maxTime"></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-button expand="block" class="ion-margin-horizontal" [disabled]="!isValid" (click)="save()">Save</ion-button>
+    </ion-toolbar>
+  </ion-footer>
+
+</ion-content>
